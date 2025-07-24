@@ -1,0 +1,130 @@
+{% extends "main.html" %}
+
+{% block title %}RR Player Stats - Profile: {{ 'Rizzgod' if player.rizz else player.name }}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.min.js"></script>
+    <!-- meta knight-->
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" lang="en"/>
+    <meta content="RR Player Stats - Profile: {{ 'Rizzgod' if player.rizz else player.name }}" property="og:title"/>
+    <meta content="See statistics for this Retro Rewind player!\nFC: {{ player.fc }}\n{{ player.ev }} VR"
+          property="og:description"/>
+    <meta content="#ACE1AF" data-react-helmet="true" name="theme-color"/>
+    <meta content="website" property="og:type"/>
+    <meta content="{{ player.mii_data if player.mii_data != None else url_for('static', filename='img/nomelacrei.png') }}"
+          property="og:image">
+    <meta content="RR Player Stats - Profile: {{ 'Rizzgod' if player.rizz else player.name }}" name="twitter:title"/>
+    <meta
+            content="See statistics for this Retro Rewind player!\nFC: {{ player.fc }}\n{{ player.ev }} VR"
+            name="twitter:description"/>
+{% endblock %}
+{% block body %}
+    <div style="margin-left: 4%; margin-right: 4%;">
+        <h2>Retro Rewind player profile</h2>
+        <div class="flex-div">
+            <div style="width: fit-content;">
+                <div style="display: flex; flex-direction: row; flex-wrap: nowrap;">
+                    <div style="width:48px; height:48px; margin-right: 8px;
+                            background-image: url({{ player.mii_data if player.mii_data != None else url_for('static', filename='img/nomelacrei.png') }});
+                            background-size: cover; background-position: center;
+                            border-radius:8px;"></div>
+                    <div style="line-height: 1.8rem; font-size: 115%;">
+                        <span>{{ 'Rizzgod' if player.rizz else player.name }}</span><br>
+                        <span>{{ player.fc }}</span></div>
+                </div>
+
+                <div style="display: flex; flex-direction: row; flex-wrap: nowrap;">
+                    <table style="text-align:left; margin-left:44px; margin-top: 12px;" class="info">
+                        <tr style="font-size: 110%;">
+                            <th>VR</th>
+                            <td>{{ player.ev }}</td>
+                        </tr>
+                        <tr style="font-size: 110%;">
+                            <th>Last seen</th>
+                            <td>{{ player.lastupdated | prettydate }}</td>
+                        </tr>
+                        <tr>
+                            <th>Rank</th>
+                            <td>#{{ player.position }}</td>
+                        </tr>
+                        <tr>
+                            <th>Open Host</th>
+                            <td>{{ 'Yes' if player.openhost else 'No' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td style="color: {{ '#EE3322' if player.banned else '#44EE22' }};">
+                                {{ 'BANNED' if player.banned else 'OK' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>PID</th>
+                            <td>{{ player.pid }}</td>
+                        </tr>
+                    </table>
+                    <table style="margin-left:44px; margin-top: 12px; margin-right: 16px; text-align: center"
+                           class="info vrinfo">
+                        <thead>
+                        <tr>
+                            <th>-</th>
+                            <th title="Change">Chg</th>
+                            <th title="Total Gains">TG</th>
+                            <th title="Total Losses">TL</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for label, m in stats.items() %}
+                            <tr>
+                                <td style="font-weight: bold;">{{ label }}</td>
+                                <td style="color: {{ '#44EE22' if m.change > 0 else ('#EE3322' if m.change < 0 else "inherit") }};">
+                                    {% if m.change is not none %}
+                                        {{ "+" if m.change > 0 else "" }}{{ m.change }}
+                                    {% else %}
+                                        —
+                                    {% endif %}
+                                </td>
+                                <td style="color: {{ '#44EE22' if m.gains > 0 else 'inherit' }};">
+                                    {{ "+" if m.gains > 0 else "" }}{{ m.gains }}</td>
+                                <td style="color: {{ '#EE3322' if m.losses > 0 else 'inherit' }};">
+                                    {{ "-" if m.losses > 0 else "" }}{{ m.losses }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <div class="controls">
+                    <button data-span="12h">Last 12h</button>
+                    <button data-span="24h">Last 24h</button>
+                    <button data-span="7d">Last 7d</button>
+                    <button data-span="24d">Last 24d</button>
+                    <button data-span="all" style="margin-right: 8px;">All Time</button>
+                    <span class="hint">12h and AllTime can be zoomed or scrolled.</span>
+                </div>
+                <div style="z-index: 10; width: 550px; height: 300px;">
+                    <canvas id="vrChart" width="550" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        <div id="vr-log-container" style="margin-left: 64px;">
+            <h4>VR History Log</h4>
+            <table id="vr-log-table" class="log-table">
+                <tbody></tbody>
+            </table>
+            <button id="load-more-btn">Load 100 more</button>
+        </div>
+        <p>
+            <a href="/leaderboard">← Back to leaderboard</a>
+        </p>
+    </div>
+
+    <script>
+      // Injected data from Flask (make sure you passed `history` to the template)
+      const data = {{ vrhist | tojson }};
+      const history = data["history"];
+    </script>
+    <script src="{{ url_for("static", filename="js/profile.js") }}"></script>
+{% endblock %}

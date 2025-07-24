@@ -1,0 +1,53 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 700px;
+  text-align: center;
+  background: #1e0d44;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+th {
+  background: #170a35;
+}
+
+.nav {
+  margin: 1em 0;
+}
+
+.nav a {
+  margin: 0 .5em;
+  text-decoration: none;
+}
+
+tr:nth-child(2n) {
+  background-color: #261255;
+}
+
+.search-bar {
+  margin: 0.5em 0;
+  text-align: left;
+}
+
+.search-bar input[type="text"] {
+  padding: 0.3em;
+  font-size: 1em;
+}
+
+.search-bar button, .beeg {
+  padding: 0.3em 0.6em;
+  font-size: 1em;
+}
+

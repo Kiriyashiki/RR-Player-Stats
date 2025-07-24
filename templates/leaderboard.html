@@ -1,0 +1,112 @@
+{% extends "main.html" %}
+
+{% block title %}RR Player Stats - Leaderboard{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lb.css') }}">
+    <!-- meta knight-->
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" lang="en"/>
+    <meta content="RR Player Stats - Leaderboard" property="og:title"/>
+    <meta content="List of Retro Rewind players sorted by VR." property="og:description"/>
+    <meta content="#ACE1AF" data-react-helmet="true" name="theme-color"/>
+    <meta content="website" property="og:type"/>
+    <meta content="{{ url_for('static', filename='img/RR.png') }}" property="og:image">
+    <meta content="RR Player Stats - Leaderboard" name="twitter:title"/>
+    <meta
+            content="List of Retro Rewind players sorted by VR."
+            name="twitter:description"/>
+{% endblock %}
+{% block body %}
+    <div style="width: fit-content; margin-left: auto; margin-right: auto;">
+        <h1>Retro Rewind Leaderboard</h1>
+        <p>Last update: {{ last_refresh | prettydate }}</p>
+
+        <form method="get" action="{{ url_for('show_leaderboard') }}" class="search-bar">
+            <input
+                    type="text"
+                    name="q"
+                    placeholder="Search by name or FC…"
+                    value="{{ q }}"
+                    autofocus
+            >
+            <button type="submit">Search</button>
+
+            {# preserve page resetting to 1, so we don’t accidentally stay on a high page #}
+            <input type="hidden" name="page" value="1">
+        </form>
+        <a href="/leaderboard">
+            <button class="beeg">Clear</button>
+        </a>
+
+        <div class="nav">
+            {% if page > 1 %}
+                <a href="{{ url_for('show_leaderboard', page=1, q=q) }}">Start</a>
+            {% endif %}
+            {% if page > 1 %}
+                <a href="{{ url_for('show_leaderboard', page=page-1, q=q) }}">← Previous</a>
+            {% endif %}
+            <span>Page {{ page }} / {{ total_pages }}</span>
+            {% if page < total_pages %}
+                <a href="{{ url_for('show_leaderboard', page=page+1, q=q) }}">Next →</a>
+            {% endif %}
+            {% if page < total_pages %}
+                <a href="{{ url_for('show_leaderboard', page=total_pages, q=q) }}">End</a>
+            {% endif %}
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Mii</th>
+                <th>Player</th>
+                <th>Friend Code</th>
+                <th title="Versus Rating">VR</th>
+                <th title="Change in VR in the last 7 days">7d VR</th>
+                <th title="OpenHost">OH</th>
+                <th>Last seen</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in players %}
+                <tr>
+                    <td>{{ p.position }}</td>
+                    <td class="cellCenter noPadding galvanizedSquareSteel" title="Mii"
+                        style="background-image: url({{ p.mii_data if p.mii_data != None else url_for('static', filename='img/nomelacrei.png') }}); background-repeat: no-repeat; background-position: center; background-size: cover; width: 40px;">
+                        <div></div>
+                    </td>
+                    <td style="text-align: left; max-width: 250px; overflow-x: hidden"><a
+                            href="/profile?pid={{ p.pid }}" target="_blank">
+                        <div style="height:100%;width:100%">{{ 'Rizzgod' if p.rizz else p.name }}</div>
+                    </a></td>
+                    <td><a href="/profile?fc={{ p.fc }}" target="_blank">
+                        <div style="height:100%;width:100%">{{ p.fc }}</div>
+                    </a></td>
+                    <td>{{ p.ev }}</td>
+                    <td style="background-color: {{ "#285411" if p.vr_change_7d > 0 else ("#541111" if p.vr_change_7d < 0 else "#544a11") }}">
+                        {{ "+" if p.vr_change_7d > 0 else "" }}{{ p.vr_change_7d }}</td>
+                    <td style="background-color: {{ "#285411" if p.openhost else "#541111" }}">{{ 'Yes' if p.openhost else 'No' }}</td>
+                    <td>{{ p.lastupdated | prettydate }}</td>
+                    <td style="background-color: {{ "#541111" if p.banned else "#285411" }}">{{ 'Banned' if p.banned else 'OK' }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="nav">
+            {% if page > 1 %}
+                <a href="{{ url_for('show_leaderboard', page=1, q=q) }}">Start</a>
+            {% endif %}
+            {% if page > 1 %}
+                <a href="{{ url_for('show_leaderboard', page=page-1, q=q) }}">← Previous</a>
+            {% endif %}
+            <span>Page {{ page }} / {{ total_pages }}</span>
+            {% if page < total_pages %}
+                <a href="{{ url_for('show_leaderboard', page=page+1, q=q) }}">Next →</a>
+            {% endif %}
+            {% if page < total_pages %}
+                <a href="{{ url_for('show_leaderboard', page=total_pages, q=q) }}">End</a>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

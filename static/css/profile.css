@@ -1,0 +1,65 @@
+.flex-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.flex-div > * {
+  margin: 1em 2em;
+  min-width: 350px;
+  box-sizing: border-box;
+}
+
+table.info th, table.info td {
+  padding: 6px;
+}
+
+table.info > tr > th {
+  padding-right: 12px;
+}
+
+.controls {
+  margin: 10px 0;
+}
+
+.controls button {
+  margin-right: 5px;
+}
+
+.vrinfo tbody tr td {
+  border-top: 1px solid #ccc;
+}
+
+table.log-table {
+  border-collapse: collapse;
+  text-align: left;
+  background: #261255;
+}
+
+table.log-table th, table.log-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+
+}
+
+table.log-table .date-divider {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #191875;
+}
+
+table.log-table th {
+  background: #170a35;
+}
+
+tr:nth-child(2n) {
+  background-color: #1e0d44;
+}
+
+.vr-cell {
+  width: 100px;
+}

@@ -1,0 +1,9 @@
+.question {
+  font-weight: bold;
+  font-size: 110%;
+}
+
+.answer {
+  margin-top: 6px;
+  margin-bottom: 28px;
+}

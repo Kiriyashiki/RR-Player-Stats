@@ -1,0 +1,40 @@
+{% extends "main.html" %}
+
+{% block title %}RR Player Stats - FAQ{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/faq.css') }}">
+    <!-- meta knight-->
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" lang="en"/>
+    <meta content="RR Player Stats - FAQ" property="og:title"/>
+    <meta content="#ACE1AF" data-react-helmet="true" name="theme-color"/>
+    <meta content="website" property="og:type"/>
+    <meta content="{{ url_for('static', filename='img/RR.png') }}" property="og:image">
+    <meta content="RR Player Stats - FAQ" name="twitter:title"/>
+{% endblock %}
+{% block body %}
+    <div style="margin-left: auto; margin-right: auto; width:100%; max-width: 800px;">
+        <p class="question">How frequently is the leaderboard updated?</p>
+        <p class="answer">The database obtains fresh data every minute.</p>
+        <p class="question">Why is some data missing? / Why is my VR not being updated?</p>
+        <p class="answer">This can happen if the database or RWFC's servers fail. You can check "Last update" in the
+            leaderboard page to know when was the data last updated. Additionally, you need to stay online (in a public
+            room) for at least a few minutes to be seen on the data.</p>
+        <p class="question">Why am I/is a player banned?</p>
+        <p class="answer">This means the player has flagged the anti-cheat measures of the leaderboard against VR
+            cheating, or was banned by a moderator for cheating VR. <b>This does not mean the player is banned from
+                RWFC!</b> If you believe you were wrongly banned, please reach out in Discord (username in the footer at
+            the bottom of the page)</p>
+        <p class="question">Rizzgod?</p>
+        <p class="answer">Censored name. Even if you change your name, it will remain censored. Please contact on
+            Discord to sort it out.</p>
+        <p class="question">Why is there a rat in place of a Mii image?</p>
+        <p class="answer">The Mii image failed to load. It should fix by itself after a while, when the player goes
+            online.</p>
+        <p class="question">There is a bug/issue/problem with something on this website.</p>
+        <p class="answer">Please file an issue on GitHub (link in the footer at the bottom of the page).</p>
+        <p class="question">IKW? OptPack? WTP?</p>
+        <p class="answer">This page only covers Retro Rewind (for now).</p>
+        <p class="question">日本語?</p>
+        <p class="answer">日本語翻訳は近日公開予定です</p>
+    </div>
+{% endblock %}

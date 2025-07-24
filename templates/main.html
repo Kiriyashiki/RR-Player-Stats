@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}RR Player Stats{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/RR.png') }}">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+<div class="navbar">
+    <div class="hidari navBtn title"><a href="/">RR Player Stats</a></div>
+    <div class="navBtn"><a href="https://to.hainaut.xyz/rick" target="_blank">About</a></div>
+    <div class="navBtn"><a href="/leaderboard">Leaderboard</a></div>
+    <div class="navBtn"><a href="/faq">FAQ</a></div>
+</div>
+<div class="mainCtn">
+    {% block body %}
+    {% endblock %}
+</div>
+<div class="footer">
+    <a href="https://github.com/Kiriyashiki/RR-Player-Stats">GitHub</a> - <a href="https://discord.gg/RetroRewind">RR Discord</a><br>
+    <span class="hint">Made by <a href="https://github.com/Kiriyashiki">Kiriyashiki</a>. For any inquiries, DM kiriyashiki_be on Discord.</span>
+</div>
+</body>
+</html>

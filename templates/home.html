@@ -1,0 +1,43 @@
+{% extends "main.html" %}
+
+{% block title %}RR Player Stats{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <!-- meta knight-->
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" lang="en"/>
+    <meta content="RR Player Stats" property="og:title"/>
+    <meta content="Player statistics and leaderboard for Retro Rewind." property="og:description"/>
+    <meta content="#ACE1AF" data-react-helmet="true" name="theme-color"/>
+    <meta content="website" property="og:type"/>
+    <meta content="{{ url_for('static', filename='img/RR.png') }}" property="og:image">
+    <meta content="RR Player Stats" name="twitter:title"/>
+    <meta
+            content="Player statistics and leaderboard for Retro Rewind."
+            name="twitter:description"/>
+{% endblock %}
+{% block body %}
+    <div style="margin-left: auto; margin-right: auto; width:100%; max-width: 800px;">
+        <h3>Player statistics and leaderboard for Retro Rewind.</h3>
+        <p>Welcome to RR Player Stats!</p>
+        <p>BETA version: this site is currently still under active development. The layout and style can still change,
+            features might be incomplete, and the database might randomly not update. Please keep that in mind when
+            exploring the site.</p>
+        <div class="card">
+            <div class="card-header">Leaderboard</div>
+            <div class="card-body">Check out the overall VR leaderboard for Retro Rewind players on RWFC!<br>
+                You can also browse and search players.
+            </div>
+            <div class="card-link"><a href="/leaderboard">→ Go</a></div>
+        </div>
+        <div class="card">
+            <div class="card-header">Profiles</div>
+            <div class="card-body">View stats for individual players, with graphs and a full VR activity log!</div>
+            <div class="card-link"><i>Find players on the leaderboard!</i></div>
+        </div>
+        <div class="card">
+            <div class="card-header">FAQ</div>
+            <div class="card-body">Questions? Answers!</div>
+            <div class="card-link"><a href="/faq">→ Go</a></div>
+        </div>
+    </div>
+{% endblock %}

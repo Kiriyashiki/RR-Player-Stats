@@ -1,0 +1,47 @@
+.navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #060744;
+  width: 100%;
+}
+
+.navBtn {
+  float: right;
+}
+
+.navBtn.hidari {
+  float: left;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 115%;
+}
+
+.navBtn a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navBtn:not(.title) a:hover {
+  background-color: #040531;
+}
+
+.footer {
+  text-align: center;
+  margin: 0;
+  padding: 16px;
+  overflow: hidden;
+  background-color: #060744;
+  width: 100%;
+}
+
+.footer a {
+  color: white;
+  text-decoration: underline;
+}
