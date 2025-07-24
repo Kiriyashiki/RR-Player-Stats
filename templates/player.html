@@ -9,7 +9,9 @@
     <!-- meta knight-->
     <meta content="text/html; charset=utf-8" http-equiv="content-type" lang="en"/>
     <meta content="RR Player Stats - Profile: {{ 'Rizzgod' if player.rizz else player.name }}" property="og:title"/>
-    <meta content="See statistics for this Retro Rewind player!\nFC: {{ player.fc }}\n{{ player.ev }} VR"
+    <meta content="See statistics for this Retro Rewind player!
+                    FC: {{ player.fc }}
+                    {{ player.ev }} VR"
           property="og:description"/>
     <meta content="#ACE1AF" data-react-helmet="true" name="theme-color"/>
     <meta content="website" property="og:type"/>
@@ -17,7 +19,9 @@
           property="og:image">
     <meta content="RR Player Stats - Profile: {{ 'Rizzgod' if player.rizz else player.name }}" name="twitter:title"/>
     <meta
-            content="See statistics for this Retro Rewind player!\nFC: {{ player.fc }}\n{{ player.ev }} VR"
+            content="See statistics for this Retro Rewind player!
+                    FC: {{ player.fc }}
+                    {{ player.ev }} VR"
             name="twitter:description"/>
 {% endblock %}
 {% block body %}
