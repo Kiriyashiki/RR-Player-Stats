@@ -23,6 +23,11 @@ def prettydate_filter(d):
     return util.prettydate(datetime.datetime.fromtimestamp(d / 1000, tz=datetime.UTC))
 
 
+@app.template_filter('hhmm')
+def hhmm_filter(minutes):
+    return util.minutes_to_hours_minutes(minutes)
+
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template("home.html")
@@ -100,6 +105,15 @@ def show_player():
                 prev = cur
 
             stats[label] = {'change': change, 'gains': gains, 'losses': losses}
+
+        pt = 0
+        prev = 0
+        for e in history:
+            if 150000 <= (e['timestamp'] - prev) <= 450000:
+                pt += 5
+            prev = e['timestamp']
+
+        player['pt'] = pt
 
         # render profile.html
         return render_template('player.html',

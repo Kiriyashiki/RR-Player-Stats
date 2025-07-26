@@ -54,6 +54,10 @@
                             <td>#{{ player.position }}</td>
                         </tr>
                         <tr>
+                            <th>Est. Playtime</th>
+                            <td>{{ player.pt | hhmm }}</td>
+                        </tr>
+                        <tr>
                             <th>Open Host</th>
                             <td>{{ 'Yes' if player.openhost else 'No' }}</td>
                         </tr>
