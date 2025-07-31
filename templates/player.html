@@ -130,9 +130,8 @@
     </div>
 
     <script>
-      // Injected data from Flask (make sure you passed `history` to the template)
       const data = {{ vrhist | tojson }};
-      const history = data["history"];
+      const hist = data["history"];
     </script>
     <script src="{{ url_for("static", filename="js/profile.js") }}"></script>
 {% endblock %}

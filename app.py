@@ -20,7 +20,7 @@ API_URL = getenv('API_URL', 'http://127.0.0.1:8338')
 
 @app.template_filter('prettydate')
 def prettydate_filter(d):
-    return util.prettydate(datetime.datetime.fromtimestamp(d / 1000, tz=datetime.UTC))
+    return util.prettydate(datetime.datetime.fromtimestamp(d, tz=datetime.UTC))
 
 
 @app.template_filter('hhmm')
@@ -68,12 +68,12 @@ def show_player():
         else:
             vrhist = resp2.json()
 
-        now_ms = int(datetime.datetime.now(datetime.timezone.utc).timestamp() * 1000)
+        now_s = int(datetime.datetime.now(datetime.timezone.utc).timestamp())
         windows = [
-            ('12h', 12 * 3600 * 1000),
-            ('24h', 24 * 3600 * 1000),
-            ('7d', 7 * 24 * 3600 * 1000),
-            ('24d', 24 * 24 * 3600 * 1000),
+            ('12h', 12 * 3600),
+            ('24h', 24 * 3600),
+            ('7d', 7 * 24 * 3600),
+            ('24d', 24 * 24 * 3600),
         ]
 
         history = vrhist['history']
@@ -82,7 +82,7 @@ def show_player():
         # ensure sorted ascending by time
         history.sort(key=lambda e: e['timestamp'])
         for label, span in windows:
-            cutoff = now_ms - span
+            cutoff = now_s - span
             # take only points >= cutoff
             slice_ = [e['vr'] for e in history if e['timestamp'] >= cutoff]
             if not slice_:

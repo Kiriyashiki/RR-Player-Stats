@@ -1,3 +1,8 @@
+const history = hist.map(pt => ({
+  ...pt,
+  timestamp: pt.timestamp * 1000
+}));
+
 const maxDataTs = history.length ? Math.max(...history.map(pt => pt.timestamp)) : Date.now();
 const now = Math.max(Date.now(), maxDataTs);
 
@@ -244,7 +249,7 @@ updateChart('24h');
 
   // format timestamp
   function fmt(ts) {
-    const d = new Date(ts);
+    const d = new Date(ts * 1000);
     // Use local date parts so key and label match the same day.
     const yyyy = d.getFullYear();
     const mm = String(d.getMonth() + 1).padStart(2, '0');
