@@ -109,7 +109,7 @@ def show_player():
         pt = 0
         prev = 0
         for e in history:
-            if 150000 <= (e['timestamp'] - prev) <= 450000:
+            if 150 <= (e['timestamp'] - prev) <= 450:
                 pt += 5
             prev = e['timestamp']
 
