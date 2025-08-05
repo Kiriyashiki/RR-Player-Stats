@@ -17,40 +17,50 @@
 {% endblock %}
 {% block body %}
     <div style="width: fit-content; margin-left: auto; margin-right: auto;">
-        <h1>Retro Rewind Leaderboard</h1>
-        <p>Last update: {{ last_refresh | prettydate }}</p>
+        <h1 style="text-align: center">Retro Rewind Leaderboard</h1>
+        <div class="flex-row">
+            <form method="get" action="{{ url_for('show_leaderboard') }}" class="search-bar">
+                <input
+                        type="text"
+                        name="q"
+                        placeholder="Search by name or FC…"
+                        value="{{ q }}"
+                        autofocus
+                >
+                <button type="submit">Search</button>
+                <input type="hidden" name="page" value="1">
+            </form>
+            <div>
+                <a href="/leaderboard">
+                    <button class="beeg">Clear</button>
+                </a>
+            </div>
+            <div style="margin: 4px 4px 4px auto;" class="smallcard">
+                <span>Last updated {{ last_refresh | prettydate }}</span>
+            </div>
+        </div>
 
-        <form method="get" action="{{ url_for('show_leaderboard') }}" class="search-bar">
-            <input
-                    type="text"
-                    name="q"
-                    placeholder="Search by name or FC…"
-                    value="{{ q }}"
-                    autofocus
-            >
-            <button type="submit">Search</button>
-
-            {# preserve page resetting to 1, so we don’t accidentally stay on a high page #}
-            <input type="hidden" name="page" value="1">
-        </form>
-        <a href="/leaderboard">
-            <button class="beeg">Clear</button>
-        </a>
-
-        <div class="nav">
-            {% if page > 1 %}
+        <div class="nav flex-row" style="border-radius: 8px 8px 0 0; margin-top: 0.5rem;">
+            <div>
                 <a href="{{ url_for('show_leaderboard', page=1, q=q) }}">Start</a>
-            {% endif %}
-            {% if page > 1 %}
-                <a href="{{ url_for('show_leaderboard', page=page-1, q=q) }}">← Previous</a>
-            {% endif %}
-            <span>Page {{ page }} / {{ total_pages }}</span>
-            {% if page < total_pages %}
+            </div>
+            <div>
+                {% if page > 1 %}
+                    <a href="{{ url_for('show_leaderboard', page=page-1, q=q) }}">← Prev</a>
+                {% else %}
+                    <span class="disabled">← Prev</span>
+                {% endif %}
+            </div>
+            <div><span>Page {{ page }} / {{ total_pages }}</span></div>
+            <div>{% if page < total_pages %}
                 <a href="{{ url_for('show_leaderboard', page=page+1, q=q) }}">Next →</a>
+            {% else %}
+                <span class="disabled">Next →</span>
             {% endif %}
-            {% if page < total_pages %}
+            </div>
+            <div>
                 <a href="{{ url_for('show_leaderboard', page=total_pages, q=q) }}">End</a>
-            {% endif %}
+            </div>
         </div>
         <table>
             <thead>
@@ -91,20 +101,27 @@
             {% endfor %}
             </tbody>
         </table>
-        <div class="nav">
-            {% if page > 1 %}
+        <div class="nav flex-row" style="border-radius: 0 0 8px 8px; margin-bottom: 0.5rem;">
+            <div>
                 <a href="{{ url_for('show_leaderboard', page=1, q=q) }}">Start</a>
-            {% endif %}
-            {% if page > 1 %}
-                <a href="{{ url_for('show_leaderboard', page=page-1, q=q) }}">← Previous</a>
-            {% endif %}
-            <span>Page {{ page }} / {{ total_pages }}</span>
-            {% if page < total_pages %}
+            </div>
+            <div>
+                {% if page > 1 %}
+                    <a href="{{ url_for('show_leaderboard', page=page-1, q=q) }}">← Prev</a>
+                {% else %}
+                    <span class="disabled">← Prev</span>
+                {% endif %}
+            </div>
+            <div><span>Page {{ page }} / {{ total_pages }}</span></div>
+            <div>{% if page < total_pages %}
                 <a href="{{ url_for('show_leaderboard', page=page+1, q=q) }}">Next →</a>
+            {% else %}
+                <span class="disabled">Next →</span>
             {% endif %}
-            {% if page < total_pages %}
+            </div>
+            <div>
                 <a href="{{ url_for('show_leaderboard', page=total_pages, q=q) }}">End</a>
-            {% endif %}
+            </div>
         </div>
     </div>
 

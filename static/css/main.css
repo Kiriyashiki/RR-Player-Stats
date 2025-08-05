@@ -220,3 +220,20 @@ a {
 .card-link {
   color: #dedede;
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.flex-row > * {
+  padding: 4px;
+}
+
+.smallcard {
+  background-color: #364153;
+  border-radius: 4px;
+}
+

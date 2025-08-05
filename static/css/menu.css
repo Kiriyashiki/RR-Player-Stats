@@ -5,6 +5,9 @@
   overflow: hidden;
   background-color: #060744;
   width: 100%;
+  border-bottom: 1px solid #4c4c5b;
+  -webkit-box-shadow: 0 0 15px 0 #000000;
+  box-shadow: 0 0 15px 0 #000000;
 }
 
 .navBtn {
