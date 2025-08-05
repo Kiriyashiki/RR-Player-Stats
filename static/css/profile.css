@@ -63,3 +63,8 @@ tr:nth-child(2n) {
 .vr-cell {
   width: 100px;
 }
+
+.lighter {
+  font-size: 85%;
+  color: #888888;
+}

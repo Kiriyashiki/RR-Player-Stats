@@ -62,6 +62,10 @@
                             <td>{{ 'Yes' if player.openhost else 'No' }}</td>
                         </tr>
                         <tr>
+                            <th>Peak VR</th>
+                            <td>{{ player.peak }} <span class="lighter">{{ player.peak_time | prettydate }}</span></td>
+                        </tr>
+                        <tr>
                             <th>Status</th>
                             <td style="color: {{ '#EE3322' if player.banned else '#44EE22' }};">
                                 {{ 'BANNED' if player.banned else 'OK' }}
